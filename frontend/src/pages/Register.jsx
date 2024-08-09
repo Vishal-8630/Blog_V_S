@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import useAuth from '../context/AuthContext';
 
 const Container = styled.div`
   padding: 20px;
@@ -46,13 +47,18 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const { login } = useAuth();
 
   // Add your registration logic here
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    login({ name, email, password });
+  }
 
   return (
     <Container>
       <Title>Register</Title>
-      <Form>
+      <Form onSubmit={handleFormSubmit}>
         <Label>Name:</Label>
         <Input
           type="text"
